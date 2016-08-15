@@ -7,7 +7,7 @@ describe Sudoku do
 
   describe "#parse_board" do
     it "should parse a sudoku board into a 2D array" do
-      parsed_board = my_sudoku.parse_board
+      parsed_board = my_sudoku.parse_board(board)
       expected_board =  [
                           [0,9,0,0,0,0,0,0,6], 
                           [0,0,0,9,6,0,4,8,5], 
