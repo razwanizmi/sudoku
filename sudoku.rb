@@ -21,4 +21,13 @@ class Sudoku
     end
     empty_positions
   end
+
+  def check_row(board, row, value)
+    board[row].each do |element|
+      if element == value
+        return false
+      end
+    end
+    true
+  end
 end
