@@ -39,4 +39,19 @@ class Sudoku
     end
     true
   end
+
+  def check_3x3_square(board, row, column, value)
+    square_size = 3
+    row_corner = square_size * (row / square_size)
+    column_corner = square_size * (column / square_size)
+    
+    for x in row_corner...(row_corner + square_size)
+      for y in column_corner...(column_corner + square_size)
+        if board[x][y] == value
+          return false
+        end
+      end
+    end
+    true
+  end
 end
