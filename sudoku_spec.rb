@@ -90,4 +90,19 @@ describe Sudoku do
       end
     end
   end
+
+  describe "#check_value" do
+    describe "should check whether a value is valid for a particular position" do
+
+      it "returns true if value is not found" do
+        expect(my_sudoku.check_value(parsed_board, 0, 0, 2)).to be(true)
+        expect(my_sudoku.check_value(parsed_board, 3, 7, 3)).to be(true)
+      end
+
+      it "returns false if value is found" do
+        expect(my_sudoku.check_value(parsed_board, 0, 0, 9)).to be(false)
+        expect(my_sudoku.check_value(parsed_board, 3, 7, 1)).to be(false)
+      end
+    end
+  end
 end
