@@ -1,7 +1,7 @@
 class Sudoku
 
-  def initialize(board)
-    @board = board
+  def initialize(board_string)
+    @board = parse_board(board_string)
   end
 
   def parse_board(board)
@@ -57,5 +57,32 @@ class Sudoku
   def check_value(board, column, row, value)
     return true if check_row(board, row, value) && check_column(board, column, value) && check_3x3_square(board, column, row, value)
     false
+  end
+
+  def solve_puzzle(board, empty_positions)
+    limit = 9
+    i = 0
+    while i < empty_positions.length
+      row = empty_positions[i][0]
+      column = empty_positions[i][1]
+      value = board[row][column] + 1
+      found = false
+
+      while !found && value <= limit
+        if check_value(board, column, row, value)
+          found = true
+          board[row][column] = value
+          i += 1
+        else
+          value += 1
+        end
+      end
+
+      if !found
+        board[row][column] = 0
+        i -= 1
+      end
+    end
+    return board
   end
 end
