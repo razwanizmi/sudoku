@@ -90,4 +90,8 @@ class Sudoku
     empty_positions = save_empty_positions(@board)
     @board = solve_puzzle(@board, empty_positions)
   end
+
+  def board
+    @board.map {|row| row.map(&:to_s).join(" ")}.join("\n")
+  end
 end
