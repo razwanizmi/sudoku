@@ -42,4 +42,12 @@ describe Sudoku do
       expect(empty_positions).to eq(expected_positions)
     end
   end
+
+  describe "#check_row" do
+    it "should check that each value in the row does not equal the input" do
+      parsed_board = my_sudoku.parse_board(board)
+      expect(my_sudoku.check_row(parsed_board, 0, 2)).to be(true)
+      expect(my_sudoku.check_row(parsed_board, 0, 9)).to be(false)
+    end
+  end
 end
