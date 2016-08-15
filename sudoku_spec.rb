@@ -28,7 +28,8 @@ describe Sudoku do
 
   describe "#save_empty_positions" do
     it "should save all of the empty positions, 0s, in a parsed board" do
-      empty_positions = my_sudoku.save_empty_positions
+      parsed_board = my_sudoku.parse_board(board)
+      empty_positions = my_sudoku.save_empty_positions(parsed_board)
       expected_positions =  [
                               [0,0],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[1,0],[1,1], 
                               [1,2],[1,5],[2,0],[2,1],[2,2],[2,6],[2,7],[2,8],[3,0], 

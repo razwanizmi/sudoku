@@ -12,5 +12,13 @@ class Sudoku
   def save_empty_positions(board)
     empty_positions = []
 
+    board.each_with_index do |x_val, x_ind|
+      x_val.each_with_index do |y_val, y_ind|
+        if y_val == 0
+          empty_positions << [x_ind, y_ind]
+        end
+      end
+    end
+    empty_positions
   end
 end
