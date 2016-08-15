@@ -85,4 +85,9 @@ class Sudoku
     end
     return board
   end
+
+  def solve!
+    empty_positions = save_empty_positions(@board)
+    @board = solve_puzzle(@board, empty_positions)
+  end
 end
