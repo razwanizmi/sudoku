@@ -2,33 +2,40 @@ require 'rspec'
 require_relative 'sudoku'
 
 describe Sudoku do
-  let (:board)      { "090000006000960485000581000004000000517200900602000370100804020706000810300090000" }
-  let (:my_sudoku)  { Sudoku.new(board) }
+  let (:board)        { "090000006000960485000581000004000000517200900602000370100804020706000810300090000" }
+  let (:my_sudoku)    { Sudoku.new(board) }
+  let (:parsed_board)  { my_sudoku.parse_board(board) }
 
   describe "#parse_board" do
-    it "should parse a sudoku board into a 2D array" do
-      parsed_board = my_sudoku.parse_board(board)
-      expected_board =  [
-                          [0,9,0,0,0,0,0,0,6], 
-                          [0,0,0,9,6,0,4,8,5], 
-                          [0,0,0,5,8,1,0,0,0], 
-                          [0,0,4,0,0,0,0,0,0], 
-                          [5,1,7,2,0,0,9,0,0], 
-                          [6,0,2,0,0,0,3,7,0], 
-                          [1,0,0,8,0,4,0,2,0], 
-                          [7,0,6,0,0,0,8,1,0], 
-                          [3,0,0,0,9,0,0,0,0]
-                        ]
+    describe "parses a sudoku board into a 2D array" do
 
-      expect(parsed_board.length).to eq(9)
-      expect(parsed_board[0].length).to eq(9)
-      expect(parsed_board).to eq(expected_board)
+      it "returns 9 elements" do
+        expect(parsed_board.length).to eq(9)
+      end
+
+      it "returns 9 sub elements" do
+        expect(parsed_board[0].length).to eq(9)
+      end
+
+      it "returns the correct elements" do
+        expected_board =  [
+                            [0,9,0,0,0,0,0,0,6], 
+                            [0,0,0,9,6,0,4,8,5], 
+                            [0,0,0,5,8,1,0,0,0], 
+                            [0,0,4,0,0,0,0,0,0], 
+                            [5,1,7,2,0,0,9,0,0], 
+                            [6,0,2,0,0,0,3,7,0], 
+                            [1,0,0,8,0,4,0,2,0], 
+                            [7,0,6,0,0,0,8,1,0], 
+                            [3,0,0,0,9,0,0,0,0]
+                          ]
+        expect(parsed_board).to eq(expected_board)
+      end      
     end
   end
 
   describe "#save_empty_positions" do
     it "should save all of the empty positions, 0s, in a parsed board" do
-      parsed_board = my_sudoku.parse_board(board)
       empty_positions = my_sudoku.save_empty_positions(parsed_board)
       expected_positions =  [
                               [0,0],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[1,0],[1,1], 
@@ -44,28 +51,43 @@ describe Sudoku do
   end
 
   describe "#check_row" do
-    it "should check that each value in the row does not equal the input" do
-      parsed_board = my_sudoku.parse_board(board)
-      expect(my_sudoku.check_row(parsed_board, 0, 2)).to be(true)
-      expect(my_sudoku.check_row(parsed_board, 0, 9)).to be(false)
+    describe "should check that each value in the row does not equal the input" do
+      
+      it "returns true if value is not found" do
+        expect(my_sudoku.check_row(parsed_board, 0, 2)).to be(true)
+      end
+
+      it "returns false if value is found" do
+        expect(my_sudoku.check_row(parsed_board, 0, 9)).to be(false)
+      end
     end
   end
 
   describe "#check_column" do
-    it "should check that each value in a column does not equal the input" do
-      parsed_board = my_sudoku.parse_board(board)
-      expect(my_sudoku.check_column(parsed_board, 0, 9)).to be(true)
-      expect(my_sudoku.check_column(parsed_board, 0, 5)).to be(false)
+    describe "should check that each value in a column does not equal the input" do
+      
+      it "returns true if value is not found" do
+        expect(my_sudoku.check_column(parsed_board, 0, 9)).to be(true)
+      end
+
+      it "returns false if value is found" do
+        expect(my_sudoku.check_column(parsed_board, 0, 5)).to be(false)
+      end
     end
   end
 
   describe "#check_3x3_square" do
-    it "should check that each value in a 3x3 square does not match the input" do
-      parsed_board = my_sudoku.parse_board(board)
-      expect(my_sudoku.check_3x3_square(parsed_board, 2, 2, 1)).to be(true)
-      expect(my_sudoku.check_3x3_square(parsed_board, 7, 7, 9)).to be(true)
-      expect(my_sudoku.check_3x3_square(parsed_board, 2, 2, 9)).to be(false)
-      expect(my_sudoku.check_3x3_square(parsed_board, 7, 7, 1)).to be(false)
+    describe "should check that each value in a 3x3 square does not match the input" do
+      
+      it "returns true if value is not found" do
+        expect(my_sudoku.check_3x3_square(parsed_board, 2, 2, 1)).to be(true)
+        expect(my_sudoku.check_3x3_square(parsed_board, 7, 7, 9)).to be(true)
+      end
+
+      it "returns false if value is found" do
+        expect(my_sudoku.check_3x3_square(parsed_board, 2, 2, 9)).to be(false)
+        expect(my_sudoku.check_3x3_square(parsed_board, 7, 7, 1)).to be(false)
+      end
     end
   end
 end
