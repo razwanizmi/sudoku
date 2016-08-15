@@ -30,4 +30,13 @@ class Sudoku
     end
     true
   end
+
+  def check_column(board, column, value)
+    board.each do |row|
+      if row[column] == value
+        return false
+      end
+    end
+    true
+  end
 end
