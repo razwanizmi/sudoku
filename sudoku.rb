@@ -11,11 +11,10 @@ class Sudoku
 
   def save_empty_positions(board)
     empty_positions = []
-
-    board.each_with_index do |x_val, x_ind|
-      x_val.each_with_index do |y_val, y_ind|
-        if y_val == 0
-          empty_positions << [x_ind, y_ind]
+    for x in 0...board.length
+      for y in 0...board[x].length
+        if board[x][y] == 0
+          empty_positions << [x, y]
         end
       end
     end
@@ -23,8 +22,8 @@ class Sudoku
   end
 
   def check_row(board, row, value)
-    board[row].each do |element|
-      if element == value
+    for y in 0...board[row].length
+      if board[row][y] == value
         return false
       end
     end
@@ -32,8 +31,8 @@ class Sudoku
   end
 
   def check_column(board, column, value)
-    board.each do |row|
-      if row[column] == value
+    for x in 0...board.length
+      if board[x][column] == value
         return false
       end
     end
@@ -54,4 +53,6 @@ class Sudoku
     end
     true
   end
+
+
 end
