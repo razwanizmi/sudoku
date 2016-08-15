@@ -50,4 +50,22 @@ describe Sudoku do
       expect(my_sudoku.check_row(parsed_board, 0, 9)).to be(false)
     end
   end
+
+  describe "#check_column" do
+    it "should check that each value in a column does not equal the input" do
+      parsed_board = my_sudoku.parse_board(board)
+      expect(my_sudoku.check_column(parsed_board, 0, 9)).to be(true)
+      expect(my_sudoku.check_column(parsed_board, 0, 5)).to be(false)
+    end
+  end
+
+  describe "#check_3x3_square" do
+    it "should check that each value in a 3x3 square does not match the input" do
+      parsed_board = my_sudoku.parse_board(board)
+      expect(my_sudoku.check_3x3_square(parsed_board, 2, 2, 1)).to be(true)
+      expect(my_sudoku.check_3x3_square(parsed_board, 7, 7, 9)).to be(true)
+      expect(my_sudoku.check_3x3_square(parsed_board, 2, 2, 9)).to be(false)
+      expect(my_sudoku.check_3x3_square(parsed_board, 7, 7, 1)).to be(false)
+    end
+  end
 end
